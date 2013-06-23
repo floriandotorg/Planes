@@ -35,7 +35,9 @@ namespace Planes
         {
             base.LoadContent(spriteBatch, content);
 
+            Load<SpriteFont>("InGameFont");
             Load<Texture2D>("World");
+            Load<Texture2D>("POI");
         }
     }
 }

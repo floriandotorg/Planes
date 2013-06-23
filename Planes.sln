@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planes", "Planes\Planes\Planes.csproj", "{C7F3EF47-D2B8-4965-80AD-E9BE0739E5EE}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "PlanesContent", "Planes\PlanesContent\PlanesContent.contentproj", "{1916DC0F-570B-47C2-ACA1-B83A17DC897B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Windows Phone = Debug|Windows Phone
+		Release|Windows Phone = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7F3EF47-D2B8-4965-80AD-E9BE0739E5EE}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{C7F3EF47-D2B8-4965-80AD-E9BE0739E5EE}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
+		{C7F3EF47-D2B8-4965-80AD-E9BE0739E5EE}.Debug|Windows Phone.Deploy.0 = Debug|Windows Phone
+		{C7F3EF47-D2B8-4965-80AD-E9BE0739E5EE}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{C7F3EF47-D2B8-4965-80AD-E9BE0739E5EE}.Release|Windows Phone.Build.0 = Release|Windows Phone
+		{C7F3EF47-D2B8-4965-80AD-E9BE0739E5EE}.Release|Windows Phone.Deploy.0 = Release|Windows Phone
+		{1916DC0F-570B-47C2-ACA1-B83A17DC897B}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{1916DC0F-570B-47C2-ACA1-B83A17DC897B}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
