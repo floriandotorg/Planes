@@ -25,6 +25,11 @@ namespace Planes
             _resultText = resultText;
         }
 
+        public ScoreOverlay()
+        {
+            _resultText = "";
+        }
+
         public override void Initialize()
         {
             base.Initialize();
@@ -48,31 +53,43 @@ namespace Planes
             Superview.CenterSubview(this, 0);
             BackgroundColor = Color.Gray * .7f;
 
-            _headerLabel.Text = "Close, but no cigar!";
+            if (_resultText == "")
+            {
+                _headerLabel.Text = "You failed!";
+                _headerLabel.Color = Color.Red;
+            }
+            else
+            {
+                _headerLabel.Text = "Close, but no cigar!";
+            }
+            
             _headerLabel.Font = Load<SpriteFont>("InGameFont");
-            CenterSubview(_headerLabel, 0);
-            _headerLabel.Y = 15;
-
+            
             _resultLabel.Text = _resultText;
             _resultLabel.Font = Load<SpriteFont>("InGameFont");
-            CenterSubview(_resultLabel, 0);
 
             _nextButton.Text = "Next";
             _nextButton.Font = Load<SpriteFont>("InGameFont");
             _nextButton.Color = new Color(120, 120, 120);
+            _nextButton.Tap += _nextButton_Tap;
+        }
+
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+
+            CenterSubview(_headerLabel, 0);
+            _headerLabel.Y = 15;
+
+            CenterSubview(_resultLabel, 0);
+
             CenterSubview(_nextButton, 0);
             _nextButton.Y = Height - 15 - _nextButton.Height;
-            _nextButton.Tap += _nextButton_Tap;
         }
 
         void _nextButton_Tap(object sender)
         {
             Dismiss(true);
-        }
-
-        public override void Draw(GameTime gameTime, AnimationInfo animationInfo)
-        {
-            base.Draw(gameTime, animationInfo);
         }
     }
 }

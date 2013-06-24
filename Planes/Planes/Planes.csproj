@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="GameView.cs" />
     <Compile Include="GeoCoordinate.cs" />
+    <Compile Include="Header.cs" />
     <Compile Include="PlanesNavigationController.cs" />
     <Compile Include="PointOfInterest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

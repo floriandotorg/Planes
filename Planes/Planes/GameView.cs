@@ -22,32 +22,23 @@ namespace Planes
 
         private List<PointOfInterest> _poiList;
 
-        private Label _currentPOILabel;
+        private Header _header;
 
         public override void Initialize()
         {
             base.Initialize();
 
-            _currentPOILabel = new Label();
-            AddSubview(_currentPOILabel);
-
             _random = new Random(DateTime.Now.Millisecond);
             _projectionMap = new ProjectionMap();
             _poiList = new List<PointOfInterest>();
+
+            _header = new Header();
+            AddSubview(_header);
         }
 
         public override void LoadContent()
         {
             base.LoadContent();
-
-            _currentPOILabel.AutoResize = false;
-            _currentPOILabel.Height = 50;
-            _currentPOILabel.Width = 200;
-            _currentPOILabel.BackgroundColor = Color.Gray * .7f;
-            _currentPOILabel.Color = Color.Black;
-            _currentPOILabel.Font = Load<SpriteFont>("InGameFont");
-            CenterSubview(_currentPOILabel, 0);
-            _currentPOILabel.Y = 0;
 
             _projectionMap.PixelSize = new Point(800, 480);
             _projectionMap.setTileMillBounds(-138.6518, -56.8490, 154.5513, 72.2355);
@@ -61,22 +52,60 @@ namespace Planes
             pickNewPOI();
         }
 
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+
+            _header.Height = 50;
+            _header.Width = 200;
+            CenterSubview(_header, 0);
+            _header.Y = 0;
+        }
+
+        private float _timer;
+
         private void pickNewPOI()
         {
             _touchLocation = new Vector2();
             _currentPOI = _poiList[_random.Next(_poiList.Count)];
-            _currentPOILabel.Text = _currentPOI.Name;
+            _header.CurrentPOI = _currentPOI.Name;
+
+            restartTimer();
         }
 
-        public override void TouchDown(TouchLocation location)
+        private void restartTimer()
         {
-            base.TouchDown(location);
+            _timer = 1.01f;
+            updateTimer();
+        }
 
-            if (_touchLocation == new Vector2())
+        private void updateTimer()
+        {
+            _timer -= .01f;
+            _header.Progress = _timer;
+
+            if (_timer < 0)
             {
-                _touchLocation = location.Position;
-                Overlay(new ScoreOverlay(String.Format("{0:0,0} Km", Convert.ToInt32(_currentPOI.Coordinate.Distance(new GeoCoordinate(location.Position, _projectionMap))))), true);
+                Overlay(new ScoreOverlay(), true);
             }
+            else if (_touchLocation == new Vector2())
+            {
+                PerformActionAfterDelay(updateTimer, TimeSpan.FromMilliseconds(20));
+            }
+        }
+
+        public override bool TouchDown(TouchLocation location)
+        {
+            if (!base.TouchDown(location))
+            {
+                if (_touchLocation == new Vector2())
+                {
+                    _touchLocation = location.Position;
+                    Overlay(new ScoreOverlay(String.Format("{0:0,0} Km", Convert.ToInt32(_currentPOI.Coordinate.Distance(new GeoCoordinate(location.Position, _projectionMap))))), true);
+                }
+            }
+
+            return true;
         }
 
         public override void OverlayDimissed(View overlay)
